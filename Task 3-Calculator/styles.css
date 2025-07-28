@@ -1,0 +1,490 @@
+/* CSS Variables for Dark Theme */
+:root {
+    /* Dark Theme Colors */
+    --bg-primary: #0f0f23;
+    --bg-secondary: rgba(30, 30, 50, 0.8);
+    --bg-tertiary: rgba(30, 30, 50, 0.6);
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --accent-primary: #818cf8;
+    --accent-secondary: #a78bfa;
+    --accent-danger: #f87171;
+    --accent-success: #34d399;
+    --accent-warning: #fbbf24;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --shadow-light: rgba(0, 0, 0, 0.3);
+    --shadow-dark: rgba(0, 0, 0, 0.5);
+    --glass-bg: rgba(30, 30, 50, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transition: all 0.3s ease;
+    overflow-x: hidden;
+}
+
+/* Calculator Container */
+.calculator-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+
+
+/* Calculator Body */
+.calculator {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 
+        0 8px 32px var(--shadow-light),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.calculator:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 12px 40px var(--shadow-dark),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Display Section */
+.display-section {
+    position: relative;
+    padding: 30px 25px 20px;
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+    border-right: 1px solid var(--border-color);
+    min-width: 300px;
+    flex-shrink: 0;
+}
+
+.memory-indicator {
+    position: absolute;
+    top: 15px;
+    left: 25px;
+    width: 24px;
+    height: 24px;
+    background: var(--accent-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.3s ease;
+}
+
+.memory-indicator.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.display {
+    text-align: right;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.expression {
+    font-size: 18px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    min-height: 27px;
+    word-wrap: break-word;
+    transition: all 0.3s ease;
+}
+
+.result {
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.2;
+    word-wrap: break-word;
+    transition: all 0.3s ease;
+}
+
+/* Buttons Grid */
+.buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border-color);
+    padding: 1px;
+    flex: 1;
+    min-width: 400px;
+}
+
+/* Button Base Styles */
+.btn {
+    border: none;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 20px 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+.btn:active::before {
+    width: 100px;
+    height: 100px;
+}
+
+.btn:hover {
+    background: var(--bg-secondary);
+    transform: translateY(-1px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Button Types */
+.number-btn {
+    background: var(--glass-bg);
+    font-weight: 600;
+}
+
+.number-btn:hover {
+    background: var(--bg-secondary);
+}
+
+.operator-btn {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--accent-primary);
+    font-weight: 600;
+}
+
+.operator-btn:hover {
+    background: rgba(99, 102, 241, 0.2);
+}
+
+.function-btn {
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--accent-secondary);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.function-btn:hover {
+    background: rgba(139, 92, 246, 0.2);
+}
+
+.clear-btn {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--accent-danger);
+    font-weight: 600;
+}
+
+.clear-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+}
+
+.equals-btn {
+    background: linear-gradient(135deg, var(--accent-success) 0%, var(--accent-primary) 100%);
+    color: white;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.equals-btn:hover {
+    background: linear-gradient(135deg, var(--accent-success) 20%, var(--accent-primary) 100%);
+    transform: translateY(-2px);
+}
+
+.memory-btn {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--accent-success);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.memory-btn:hover {
+    background: rgba(16, 185, 129, 0.2);
+}
+
+/* Footer */
+.footer {
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 20px;
+    padding: 20px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-content p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.footer-content p:first-child {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 16px;
+}
+
+/* Keyboard Info */
+.keyboard-info {
+    margin-top: 20px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.keyboard-info p {
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.keyboard-shortcuts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.keyboard-shortcuts span {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .calculator-container {
+        max-width: 100%;
+    }
+    
+
+    
+    .calculator {
+        flex-direction: column;
+        max-width: 400px;
+    }
+    
+    .display-section {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        min-width: auto;
+    }
+    
+    .buttons-grid {
+        min-width: auto;
+    }
+    
+    .btn {
+        padding: 15px 8px;
+        font-size: 16px;
+        min-height: 50px;
+    }
+    
+    .result {
+        font-size: 28px;
+    }
+    
+    .expression {
+        font-size: 16px;
+    }
+    
+    .keyboard-shortcuts {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .footer {
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn {
+        padding: 12px 6px;
+        font-size: 14px;
+        min-height: 45px;
+    }
+    
+    .result {
+        font-size: 24px;
+    }
+    
+    .expression {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 360px) {
+    .btn {
+        padding: 12px 6px;
+        font-size: 14px;
+        min-height: 45px;
+    }
+    
+    .result {
+        font-size: 24px;
+    }
+    
+    .expression {
+        font-size: 14px;
+    }
+}
+
+/* Animation Classes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.calculator {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.btn:active {
+    animation: pulse 0.2s ease;
+}
+
+/* Error State */
+.error {
+    color: var(--accent-danger) !important;
+    animation: pulse 0.3s ease;
+}
+
+/* Success State */
+.success {
+    color: var(--accent-success) !important;
+    animation: pulse 0.3s ease;
+}
+
+/* Loading State */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Focus States for Accessibility */
+.btn:focus {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    :root {
+        --border-color: rgba(0, 0, 0, 0.3);
+        --glass-bg: rgba(255, 255, 255, 0.9);
+    }
+    
+    [data-theme="dark"] {
+        --border-color: rgba(255, 255, 255, 0.3);
+        --glass-bg: rgba(0, 0, 0, 0.9);
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+} 
